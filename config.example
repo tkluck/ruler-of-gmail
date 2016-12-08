@@ -1,23 +1,20 @@
 ## Example configuration file
 #
-#user my-username;
-#host exchange.example.com;
+#name "John Doe";
+#email "name@gmail.com";
 #
-#folder Inbox {
-#    folder Important { }
-#    folder Spam { }
+#label INBOX {
+#    label Important { }
+#    label Spam { }
 #}
 #
-#category RulerOfExchange;
-#
-#match recipient "me@example.com" {
-#    match body "ruler-of-exchange" {
-#        action category "RulerOfExchange";
-#    }
-#    last-action move Inbox/Important;
+#match recipient "name@gmail.com" {
+#    last-action apply-label INBOX/Important;
 #}
 #
 #match from "hr@example.com" {
-#    action setread;
-#    last-action move Inbox/Spam;
+#    match subject "compliance" {
+#       action setread;
+#       last-action apply-label INBOX/Spam;
+#    }
 #}
