@@ -137,6 +137,10 @@ PARSE_CONFIG: {
     sub OR {
         @_>1 ? [-or => @_] : @_;
     }
+    sub NOT {
+        die "NOT supports only one argument" unless @_ == 1;
+        [-not => $_[0]]
+    }
 
     my $get_rules; $get_rules= sub {
         my @parent_expressions= @_;
@@ -156,7 +160,7 @@ PARSE_CONFIG: {
                     push @rules, Rule->new(AND(@merged_expr), $action, \%config);
                 } else {
                     push @rules, Rule->new(
-                        AND(@merged_expr, ['-not' => OR(@exclusions_from_lastaction)]),
+                        AND(@merged_expr, NOT(OR(@exclusions_from_lastaction))),
                         $action, \%config);
                 }
                 if($next eq 'last-action') {
@@ -204,12 +208,12 @@ PARSE_CONFIG: {
             push @all_rules, @$rules;
         } elsif($next eq 'action') {
             my $action= $get_action->();
-            push @all_rules, Rule->new([-not => OR(@exclusions_from_lastaction)], $action, \%config);
+            push @all_rules, Rule->new(NOT(OR(@exclusions_from_lastaction)), $action, \%config);
             $config_error->("Expected semicolon") unless $get_lexeme->() eq ';';
         } elsif($next eq 'last-action') {
             my $action= $get_action->();
-            push @all_rules, Rule->new([-not => OR(@exclusions_from_lastaction)], $action, \%config);
-            push @exclusions_from_lastaction, [-or => "dummy", "-dummy"];
+            push @all_rules, Rule->new(NOT(OR(@exclusions_from_lastaction)), $action, \%config);
+            push @exclusions_from_lastaction, AND("dummy", NOT("dummy"));
             $config_error->("Expected semicolon") unless $get_lexeme->() eq ';';
         } elsif ($next eq 'label') {
             my @new_labels = $get_labels->();
