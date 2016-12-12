@@ -89,10 +89,11 @@ PARSE_CONFIG: {
 
 
     my %condmapsimple= (
-        subject =>           "subject:",
-        recipient =>         "to:",
-        from =>              "from:",
-        'subject-or-body' => "",
+        subject   => "subject:",
+        recipient => "to:",
+        from      => "from:",
+        list      => "list:",
+        text      => "",
     );
 
     my $get_expression= sub {
