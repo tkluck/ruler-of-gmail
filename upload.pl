@@ -312,10 +312,10 @@ sub _to_gmail_query {
     }
 }
 
-my %actions = (
-    delete => [label => TRASH],
+my %actions; BEGIN{ %actions= (
+    delete  => [label            => TRASH],
     setread => [shouldMarkAsRead => 'true'],
-);
+); }
 
 sub new {
     my ($class, $expression, $action, $config)= @_;
