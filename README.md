@@ -8,7 +8,7 @@ This is  fork of ruler-of-exchange that uses a similar language to power GMail f
 
 ## Usage
 
-    ./upload.pl -c <config file>
+    ./compile.pl -c <config file> > filters.xml
 
 ## Config format
 
