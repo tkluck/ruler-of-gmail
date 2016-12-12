@@ -115,9 +115,9 @@ PARSE_CONFIG: {
     };
 
     my %action_argc= (
-        delete => 0,
+        delete        => 0,
         'apply-label' => 1,
-        setread => 0,
+        setread       => 0,
     );
     my $get_action= sub {
         my $type= $get_lexeme->();
@@ -287,8 +287,8 @@ sub name {
 }
 
 use constant {
-    TRASH => "TRASH",
-    INBOX => "INBOX",
+    TRASH  => "TRASH",
+    INBOX  => "INBOX",
     UNREAD => "UNREAD",
 };
 
