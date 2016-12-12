@@ -334,7 +334,6 @@ sub new {
             push @{ $properties{action} }, label => $labelname;
         } elsif(my $property= $actions{$type}) {
             push @{ $properties{action} }, @$property;
-        }
         } else {
             die "Unknown action type: $type";
         }
