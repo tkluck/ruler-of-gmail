@@ -27,7 +27,7 @@ This is  fork of ruler-of-exchange that uses a similar language to power GMail f
     match from "hr@example.com" {
         match subject "compliance" {
            action setread;
-           last-action apply-label INBOX/Spam;
+           last-action move INBOX/Spam;
         }
     }
 
@@ -72,11 +72,13 @@ Five types of expressions are currently implemented, plus their negated versions
 
 Actions are indicated using the `action` and `last-action` keywords. In case of `last-action`, rule processing will stop after the action is executed.
 
-Three actions are currently implemented :
+Five actions are currently implemented :
 
  - `delete`: deletes the message
- - `apply-label <folder>`: moves the message to a folder. The label must be configured using a `label` block
+ - `apply-label <label>`: moves the message to a label. The label must be configured using a `label` block
  - `setread`: marks the message as read
+ - `skip-inbox`: makes the message move to 'all mail' directly
+ - `move <label>`: combination of `apply-label` and `skip-inbox`
 
 ## Caveats
 

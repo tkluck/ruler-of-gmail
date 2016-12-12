@@ -117,6 +117,7 @@ PARSE_CONFIG: {
     my %action_argc= (
         delete        => 0,
         'apply-label' => 1,
+        move          => 1,
         setread       => 0,
     );
     my $get_action= sub {
@@ -318,8 +319,9 @@ sub _to_gmail_query {
 }
 
 my %actions; BEGIN{ %actions= (
-    delete  => [label            => TRASH],
-    setread => [shouldMarkAsRead => 'true'],
+    delete       => [label            => TRASH],
+    setread      => [shouldMarkAsRead => 'true'],
+    'skip-inbox' => [shouldArchive    => 'true'],
 ); }
 
 sub new {
@@ -331,12 +333,15 @@ sub new {
 
     ACTION: {
         my $type= $action->{type};
-        if ($type eq 'apply-label') {
+        if ($type eq 'apply-label' || $type eq 'move') {
             my $labelname= $action->{0};
             if(!defined $config->{labels}{$labelname}) {
                 die "Undefined label: $labelname";
             }
             push @{ $properties{action} }, label => $labelname;
+            if($type eq 'move') {
+                push @{ $properties{action} }, shouldArchive => 'true';
+            }
         } elsif(my $property= $actions{$type}) {
             push @{ $properties{action} }, @$property;
         } else {
