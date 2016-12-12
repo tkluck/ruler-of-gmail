@@ -46,7 +46,7 @@ There are two block types, which are both allowed to recurse, `label` and `match
 
 `match` specifies your filter structure. After the `match` keyword, its expression follows (see the "Expressions" section), following with a bracket (`{`) indicating the start of its body. Within this body more `match` blocks may be created, applying an effective `AND` to your filters.
 
-    match header "X-Spam: yes" {
+    match subject "[Spam]" {
         action delete;
     }
 
@@ -56,14 +56,17 @@ A note on quoting: it is optional to quote strings that do not contain whitespac
 
 ## Expressions
 
-Four types of expressions are currently implemented, plus their negated versions (specified using a `not` after `match`).
+Five types of expressions are currently implemented, plus their negated versions (specified using a `not` after `match`).
 
     # Matches mails that contain "Tom" or "Code" in the subject
     match subject ["Tom" "Code"] { }
     # Others:
     match recipient "my.mail@example.com" { 
     match not from "ceo@example.com" { } # Note the negation
-    match subject-or-body [ "Hello World" "Just testing" ] { }
+    # match subject or body
+    match text [ "Hello World" "Just testing" ] { }
+    # match list id
+    match list "commits.lists.example.com"
 
 ## Actions
 
