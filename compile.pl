@@ -301,7 +301,7 @@ use constant {
 sub _to_gmail_query {
     my ($expression)= @_;
 
-    return $expression unless ref $expression;
+    return qq("$expression") unless ref $expression;
 
     my ($op, @args)= @$expression;
     if($op eq '-and') {
