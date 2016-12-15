@@ -117,6 +117,7 @@ PARSE_CONFIG: {
     my %action_argc= (
         delete        => 0,
         'apply-label' => 1,
+        'skip-inbox'  => 0,
         move          => 1,
         setread       => 0,
     );
