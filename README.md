@@ -1,10 +1,17 @@
 # Ruler of Gmail
 
-Sieve for Gmail but really just Perl transforming it to filters specified in GMail's XML format.
+Sieve for Gmail (but really just Perl transforming it to filters specified in
+GMail's XML format).
 
-So the company I work for switched from a Linux-based mail stack, first to Microsoft's Exchange product, then to GMail... We used to have Sieve filters available, but that went away with the move, and Exchange only has its stupid rule editor. Even worse, GMail doesn't have any scriptable language at all.
+This repository is archived; we recommend users [migrate to `gmailctl` instead][gmailctl].
 
-This is  fork of ruler-of-exchange that uses a similar language to power GMail filters. The main win is that GMail's filters do not support 'last-action', so every email will be matched against every filter. Here, we emulate 'last-action' behaviour by negating last-action's filters in all subsequent matches.
+[gmailctl]: https://github.com/mbrt/gmailctl
+
+This is  fork of ruler-of-exchange that uses a similar language to power GMail
+filters. The main win is that GMail's filters do not support 'last-action', so
+every email will be matched against every filter. Here, we emulate
+'last-action' behaviour by negating last-action's filters in all subsequent
+matches.
 
 ## Usage
 
